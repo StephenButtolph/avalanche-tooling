@@ -8,10 +8,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/ava-labs/avalanchego/api/info"
 	"github.com/ava-labs/avalanchego/vms/platformvm"
 
-	"github.com/StephenButtolph/avalanche-tooling/benched"
+	"github.com/StephenButtolph/avalanche-tooling/uptime"
 )
 
 const (
@@ -23,10 +22,10 @@ func main() {
 		log.Fatalf("expected api endpoint to be provided as an argument")
 	}
 
-	infoClient := info.NewClient(os.Args[1], apiTimeout)
+	// infoClient := info.NewClient(os.Args[1], apiTimeout)
 	platformClient := platformvm.NewClient(os.Args[1], apiTimeout)
 
-	err := benched.DisplayBenched(infoClient, platformClient)
+	err := uptime.DisplayDown(platformClient) //benched.DisplayBenched(infoClient, platformClient)
 	if err != nil {
 		log.Fatal(err)
 	}
