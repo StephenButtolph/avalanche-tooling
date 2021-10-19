@@ -6,26 +6,25 @@ package main
 import (
 	"log"
 	"os"
-	"time"
 
-	"github.com/ava-labs/avalanchego/vms/platformvm"
-
-	"github.com/StephenButtolph/avalanche-tooling/uptime"
-)
-
-const (
-	apiTimeout = 3 * time.Second
+	"github.com/StephenButtolph/avalanche-tooling/checksum"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		log.Fatalf("expected api endpoint to be provided as an argument")
+	// if len(os.Args) != 4 {
+	// 	log.Fatalf("expected secret key, input file, and output file to be provided as arguments")
+	// }
+
+	// err := signer.Sign(os.Args[2], os.Args[3], os.Args[1])
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	if len(os.Args) != 3 {
+		log.Fatalf("expected input file, and output file to be provided as arguments")
 	}
 
-	// infoClient := info.NewClient(os.Args[1], apiTimeout)
-	platformClient := platformvm.NewClient(os.Args[1], apiTimeout)
-
-	err := uptime.DisplayDown(platformClient) //benched.DisplayBenched(infoClient, platformClient)
+	err := checksum.AddChecksum(os.Args[1], os.Args[2])
 	if err != nil {
 		log.Fatal(err)
 	}
